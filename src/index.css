@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root{
+  animation: fadeIn 1.5s;
+}
+
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@font-face {
+  font-family: "outfit-regular";
+  src: url("./fonts/Outfit-Regular.ttf");
+}
+
+@font-face {
+  font-family: "outfit-medium";
+  src: url("./fonts/Outfit-Medium.ttf");
+}
+
+
+
