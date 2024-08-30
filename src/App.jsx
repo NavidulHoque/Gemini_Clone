@@ -9,30 +9,36 @@ const App = () => {
   const [showGeminiResults, setShowGeminiResults] = useState("");
   const [showMyMessage, setShowMyMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false)
-  
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isExtendedInMobile, setIsExtendedInMobile] = useState(false);
+
   async function handleClickingRecentChat(chatInfo) {
+    setIsDisabled(true);
 
-    setIsDisabled(true)
+    setShowGeminiResults("");
 
-    setShowGeminiResults("")
+    setLoading(true);
 
-    setLoading(true)
+    setHasChattingStarted(true);
 
-    setHasChattingStarted(true)
+    setShowMyMessage(chatInfo.chatInfo);
 
-    setShowMyMessage(chatInfo.chatInfo)
+    const response = await runChat(chatInfo.chatInfo);
 
-    const response = await runChat(chatInfo.chatInfo)
+    optimizeResponse(response, setShowGeminiResults, setIsDisabled);
 
-    optimizeResponse(response, setShowGeminiResults, setIsDisabled)
-
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
     <div className="min-h-screen flex box-border font-outfitRegular">
-      <SideBar handleClickingRecentChat={handleClickingRecentChat} setHasChattingStarted={setHasChattingStarted} isDisabled={isDisabled} />
+      <SideBar
+        handleClickingRecentChat={handleClickingRecentChat}
+        setHasChattingStarted={setHasChattingStarted}
+        isDisabled={isDisabled}
+        setIsExtendedInMobile={setIsExtendedInMobile}
+        isExtendedInMobile={isExtendedInMobile}
+      />
       <Main
         hasChattingStarted={hasChattingStarted}
         setHasChattingStarted={setHasChattingStarted}
@@ -44,6 +50,7 @@ const App = () => {
         setLoading={setLoading}
         isDisabled={isDisabled}
         setIsDisabled={setIsDisabled}
+        setIsExtendedInMobile={setIsExtendedInMobile}
       />
     </div>
   );

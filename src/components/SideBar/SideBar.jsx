@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import ChatInfo from "./ChatInfo";
 import { deleteEntireChat } from "../../features/chatListSlice";
 
-const SideBar = ({handleClickingRecentChat, setHasChattingStarted, isDisabled}) => {
-  const [isExtended, setIsExtended] = useState(false)
+const SideBar = ({handleClickingRecentChat, setHasChattingStarted, isDisabled, isExtendedInMobile, setIsExtendedInMobile}) => {
+  const windowInnerWidth = window.innerWidth
+  const [isExtended, setIsExtended] = useState(windowInnerWidth < 768 ? true : false)
   const chatList = useSelector(state => state.ChatList.ChatList)
   const dispatch = useDispatch()
 
@@ -18,14 +19,14 @@ const SideBar = ({handleClickingRecentChat, setHasChattingStarted, isDisabled}) 
 
   return (
 
-    <div className="flex flex-col gap-10 bg-[#f0f4f9] py-[25px] px-[15px] overflow-y-auto">
+    <div className={`flex flex-col gap-10 bg-[#f0f4f9] py-[25px] px-[15px] overflow-y-auto transition-all duration-200  ${windowInnerWidth < 768 ? "fixed left-0 top-0 w-[50%] h-full z-10" : ""} ${(!isExtendedInMobile && windowInnerWidth < 768) ? "-translate-x-full" : "translate-x-0"}`}>
 
       <FaBars
         className="w-[22px] h-[22px] cursor-pointer"
-        onClick={() => setIsExtended((prev) => !prev)}
+        onClick={() => windowInnerWidth < 768 ? setIsExtendedInMobile(false) : setIsExtended((prev) => !prev)}
       />
 
-      <div onClick={() => isDisabled ? "" : handleCreatingNewChat()} className="flex items-center gap-2 bg-[#e6eaf1] text-[14px] text-slate-500 py-[10px] px-[15px] rounded-full cursor-pointer">
+      <div onClick={() => isDisabled ? "" : handleCreatingNewChat()} className="flex items-center gap-2 bg-[#e6eaf1] text-[14px] text-slate-500 py-[15px] px-[15px] rounded-full cursor-pointer">
 
         <GoPlus className="w-[30px] h-[30px]" />
 

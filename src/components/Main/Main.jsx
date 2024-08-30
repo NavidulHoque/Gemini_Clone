@@ -19,7 +19,8 @@ const Main = ({
     loading,
     setLoading,
     setIsDisabled,
-    isDisabled
+    isDisabled,
+    setIsExtendedInMobile
 }) => {
     const dispatch = useDispatch()
     const [input, setInput] = useState("");
@@ -76,9 +77,9 @@ const Main = ({
     return (
         <div className="grow min-h-screen pb-[20px]">
 
-            <Navbar />
+            <Navbar setIsExtendedInMobile={setIsExtendedInMobile} />
 
-            <div className="flex flex-col min-h-[78vh] w-[60vw] mx-auto pt-12 pb-6 ">
+            <div className="flex flex-col min-h-[78vh] md:w-[60vw] w-[80vw] mx-auto pt-12 pb-6">
 
                 {!hasChattingStarted ? (
                     <Introductory handleSendingCardMessage={handleSendingCardMessage} />
@@ -88,7 +89,7 @@ const Main = ({
 
             </div>
 
-            <div onKeyDown={(e) => e.key === "Enter" ? handleSendMessage() : ""} className="flex items-center justify-between bg-[#f0f4f9] sticky bottom-[10px] w-[65vw] mx-auto py-[10px] px-[20px] rounded-3xl">
+            <div onKeyDown={(e) => e.key === "Enter" ? handleSendMessage() : ""} className="flex items-center justify-between bg-[#f0f4f9] sticky bottom-[10px] sm:w-[65vw] w-[90vw] mx-auto py-[10px] px-[20px] rounded-3xl">
 
                 <input
                     type="text"
