@@ -8,7 +8,7 @@ const Chat = ({showMyMessage, showGeminiResults, loading}) => {
     //for security purpose
     const sanitizedHtml = DOMPurify.sanitize(showGeminiResults)
     return (
-        <div className="flex flex-col gap-8 overflow-y-auto">
+        <div className="flex flex-col gap-8">
 
             <div className="flex items-center space-x-3">
 
