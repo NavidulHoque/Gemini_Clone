@@ -30,6 +30,8 @@ const App = () => {
     setLoading(false);
   }
 
+  console.log()
+
   return (
     <div className="min-h-screen flex box-border font-outfitRegular">
       <SideBar

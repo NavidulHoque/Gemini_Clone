@@ -10,14 +10,14 @@ import {
     GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold,
-} from "@google/generative-ai";
+} from "@google/generative-ai"
 
-const apiKey = "AIzaSyCDz4ieDoXQQq_n22MebUEBBFUROW2QkIM";
-const genAI = new GoogleGenerativeAI(apiKey);
+const apiKey = import.meta.env.VITE_GEMINI_APIKEY
+const genAI = new GoogleGenerativeAI(apiKey)
 
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-});
+})
 
 const generationConfig = {
     temperature: 1,
@@ -37,5 +37,6 @@ export default async function runChat(message) {
     });
 
     const result = await chatSession.sendMessage(message)
+    console.log()
     return result.response.text()
 }
