@@ -1,9 +1,23 @@
-/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import avatar from "../../assets/avatar.png"
 import { FaBars } from "react-icons/fa6";
 
 const Navbar = ({ setIsExtendedInMobile }) => {
-  const windowInnerWidth = window.innerWidth
+  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth)
+
+  //for window resizing purpose
+  useEffect(() => {
+
+    const handleResize = () => {
+      setWindowInnerWidth(window.innerWidth)
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+
+  }, [])
+  
   return (
     <nav className="flex justify-between items-center h-[8vh] text-[22px] text-[#585858] px-5">
 

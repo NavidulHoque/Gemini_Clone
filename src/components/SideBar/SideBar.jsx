@@ -1,16 +1,29 @@
 /* eslint-disable react/prop-types */
 import { FaBars } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ChatInfo from "./ChatInfo";
 import { deleteEntireChat } from "../../features/chatListSlice";
 
 const SideBar = ({ handleClickingRecentChat, setHasChattingStarted, isDisabled, isExtendedInMobile, setIsExtendedInMobile }) => {
-  const windowInnerWidth = window.innerWidth
+  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth)
   const [isExtended, setIsExtended] = useState(windowInnerWidth < 768 ? true : false)
   const chatList = useSelector(state => state.ChatList.ChatList)
   const dispatch = useDispatch()
+
+  //for window resizing purpose
+  useEffect(() => {
+
+    const handleResize = () => {
+      setWindowInnerWidth(window.innerWidth)
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+
+  }, [])
 
   function handleCreatingNewChat() {
     dispatch(deleteEntireChat())
